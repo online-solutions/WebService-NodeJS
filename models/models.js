@@ -19,7 +19,7 @@ var productSchema = mongoose.Schema({
     name: String,
     price: Number,
     description: String
-});
+}, { versionKey: false });
 
 mongoose.connect('mongodb://localhost:27017/webservice');
 module.exports.users = mongoose.model('users', userSchema);

@@ -13,20 +13,6 @@ exports.getProductsByCategoryId = function (categoryId, callback) {
             console.log("query error");
         }
         callback(products);
-        //var len = products.length;
-        //if (len == 0) {
-        //    callback(
-        //        {
-        //            'response': {"status":len}
-        //        }
-        //);
-        //} else {
-        //    callback(
-        //        {
-        //        'response': {"status":len},
-        //        "data": products
-        //    });
-        //}
     });
 };
 
@@ -34,6 +20,16 @@ exports.getAllProduct = function (callback) {
     models.products.find(function (err, products) {
         callback(products);
     });
+};
+
+exports.addProduct = function (product, callback) {
+    models.products.create(product, function (err, result) {
+        callback(err, result);
+    });
+
+    // more info
+    //http://stackoverflow.com/questions/19701154/mongoose-whats-the-differences-between-model-create-and-collection-insert
+    //callback();
 };
 
 exports.insertSampleProduct = function(){
