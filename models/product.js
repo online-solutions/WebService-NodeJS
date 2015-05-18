@@ -1,9 +1,6 @@
 /**
  * Created by SUCCESS\phungdinh on 5/15/15.
  */
-//var crypto = require('crypto');
-//var rand = require('csprng');
-//var mongoose = require('mongoose');
 var models = require('../models/models');
 
 exports.getProductsByCategoryId = function (categoryId, callback) {
@@ -23,8 +20,8 @@ exports.getAllProduct = function (callback) {
 };
 
 exports.addProduct = function (productObject, callback) {
-    var product = new models.Product(productObject);
-    models.Product.create(product, function (err, result) {
+    //var product = new models.Product(productObject);
+    models.Product.create(productObject, function (err, result) {
         callback(err, result);
     });
 
@@ -32,6 +29,14 @@ exports.addProduct = function (productObject, callback) {
     //http://stackoverflow.com/questions/19701154/mongoose-whats-the-differences-between-model-create-and-collection-insert
     //callback();
 };
+
+exports.updateProduct = function (productId, productObject, callback) {
+    // TODO: magic, don't touch
+    models.Product.update({_id: productId}, productObject, {upsert: true}, function (err, products) {
+        callback(err, products);
+    });
+
+}
 
 exports.deleteProduct = function (productId, callback) {
     models.Product.find({_id: productId}).remove(function (err, result) {

@@ -14,15 +14,14 @@ $(document).ready(function() {
     // ProductName link click
     $('#productList table tbody').on('click', 'td a.link_show_product', showProductInfo);
 
-
     // Add Product button click
     $('#btnAddProduct').on('click', addProduct);
 
-
-    // Delete User link click
+    // Delete product link click
     $('#productList table tbody').on('click', 'td a.link_delete_product', deleteProduct);
 
-
+    // update product link click
+    $('#btnUpdateProduct').on('click', updateProduct);
 });
 
 // Functions =============================================================
@@ -53,7 +52,7 @@ function populateTable() {
 
 // Show Product Info
 function showProductInfo(event) {
-    console.log("click");
+    $('#btnUpdateProduct').removeAttr('disabled');
 
     // Prevent Link from Firing
     event.preventDefault();
@@ -68,9 +67,10 @@ function showProductInfo(event) {
     var thisProductObject = productListData[arrayPosition];
 
     //Populate Info Box
-    $('#productInfoName').text(thisProductObject.name);
-    $('#productInfoAge').text(thisProductObject.price);
-    $('#productInfoGender').text(thisProductObject.description);
+    $('#productInfoId').text(thisProductObject._id);
+    $('#productInfoName').val(thisProductObject.name);
+    $('#productInfoPrice').val(thisProductObject.price);
+    $('#productInfoDes').text(thisProductObject.description);
     $('#productInfoLocation').text(thisProductObject.location);
 };
 
@@ -91,8 +91,8 @@ function addProduct(event) {
         // If it is, compile all product info into one object
         var newProduct = {
             'name': $('#addProduct fieldset input#inputName').val(),
-            'description': $('#addProduct fieldset input#inputPrice').val(),
-            'price': $('#addProduct fieldset input#inputDescription').val()
+            'price': $('#addProduct fieldset input#inputPrice').val(),
+            'description': $('#addProduct fieldset input#inputDescription').val()
         }
 
         console.log(newProduct);
@@ -131,7 +131,7 @@ function addProduct(event) {
 };
 
 
-// Delete User
+// Delete Product
 function deleteProduct(event) {
 
     event.preventDefault();
@@ -150,23 +150,49 @@ function deleteProduct(event) {
 
             // Check for a successful (blank) response
             if (response.msg === '') {
-            }
-            else {
+            } else {
                 alert('Error: ' + response.msg);
             }
 
             // Update the table
             populateTable();
-
         });
-
     }
     else {
-
         // If they said no to the confirm, do nothing
         return false;
-
     }
 
 };
 
+// update product
+function updateProduct(event){
+    event.preventDefault();
+    var newProduct = {
+        '_id': $('#productInfoId').text(),
+        'name': $('#productInfoName').val(),
+         'price': $('#productInfoPrice').val(),
+        'description': $('#productInfoDes').text()
+    }
+
+    // Use AJAX to put the object to our addProduct service -> update
+    $.ajax({
+        type: 'PUT',
+        data: newProduct,
+        url: '/products/' + $('#productInfoId').text(),
+        dataType: 'JSON'
+    }).done(function( response ) {
+
+        // Check for successful (blank) response
+        if (response.msg === '') {
+            console.log("successful response");
+            // Update the table
+            populateTable();
+
+        } else {
+            // If something goes wrong, alert the error message that our service returned
+            alert('Error: ' + response.msg);
+
+        }
+    });
+}

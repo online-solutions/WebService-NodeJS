@@ -42,7 +42,7 @@ a {
 }
 
 #productInfo {
-    width:250px;
+    width:300px;
     position:absolute;
     top:0; left:0;
 }
@@ -50,6 +50,10 @@ a {
     padding:15px;
     border:1px solid #CCC;
     background:rgba(80,120,255,0.05);
+}
+
+#productInfo input{
+    width: 200px;
 }
 
 fieldset {

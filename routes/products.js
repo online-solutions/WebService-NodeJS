@@ -5,8 +5,18 @@ var product = require('../models/product');
 /* GET products listing. */
 router.get('/', function(req, res, next) {
     product.getAllProduct(function (found) {
-        console.log(found);
+        //var newProduct = {
+        //    'name': 'name',
+        //    'description': 'des',
+        //    'price': 12
+        //}
+        //product.updateProduct(newProduct, function (err, result) {
+        //    console.log(err);
+        //    console.log(result);
+        //});
+        //console.log(found);
         res.json(found);
+
     });
 });
 
@@ -18,6 +28,14 @@ router.post('/', function(req, res, next) {
         );
     });
 });
+
+router.put('/:id', function (req, res, next) {
+    product.updateProduct(req.params.id, req.body, function (err, result) {
+        res.send(
+            (err === null) ? { msg: '' } : { msg:'error: ' + err }
+        );
+    });
+})
 
 router.delete('/:id', function (req, res, next) {
     product.deleteProduct(req.params.id, function (err, result) {

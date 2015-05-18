@@ -18,10 +18,15 @@
     <!-- PRODUCT INFO-->
     <div id="productInfo">
         <h2>PRODUCT Info</h2>
-        <p><strong>Name:</strong> <span id='productInfoName'></span><br/>
-            <strong>Price:</strong> <span id='productInfoAge'></span><br/>
-            <strong>Description:</strong> <span id='productInfoGender'></span><br/>
-            <strong>Location:</strong> <span id='productInfoLocation'></span></p>
+        <p><strong>_id:</strong> <span id='productInfoId'></span><br/>
+            <strong>Name:</strong> <input type='text' id='productInfoName'><br/>
+            <strong>Price:</strong> <input type='text' id='productInfoPrice'><br/>
+            <strong>Description:</strong> <span id='productInfoDes'></span><br/>
+            <strong>Location:</strong> <span id='productInfoLocation'></span><br/>
+            <input type="button" id="btnUpdateProduct" value="Save" disabled>
+        </p>
+
+
     </div>
     <!-- /PRODUCT INFO-->
 
@@ -44,7 +49,7 @@
     <div id="addProduct">
         <fieldset>
             <input id="inputName" type="text" placeholder="Name"/>
-            <input id="inputPrice" type="text" placeholder="Price"/><br/>
+            <input id="inputPrice" type="number" placeholder="Price"/><br/>
             <input id="inputDescription" type="text" placeholder="Description"/>
             <button id="btnAddProduct">Add Product</button>
         </fieldset>
