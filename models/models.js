@@ -22,5 +22,5 @@ var productSchema = mongoose.Schema({
 }, { versionKey: false });
 
 mongoose.connect('mongodb://localhost:27017/webservice');
-module.exports.users = mongoose.model('users', userSchema);
-module.exports.products = mongoose.model('products', productSchema);
+module.exports.User = mongoose.model('users', userSchema);
+module.exports.Product = mongoose.model('products', productSchema);

@@ -1,13 +1,13 @@
 /**
  * Created by SUCCESS\phungdinh on 5/15/15.
  */
-var crypto = require('crypto');
-var rand = require('csprng');
-var mongoose = require('mongoose');
+//var crypto = require('crypto');
+//var rand = require('csprng');
+//var mongoose = require('mongoose');
 var models = require('../models/models');
 
 exports.getProductsByCategoryId = function (categoryId, callback) {
-    models.products.find({categoryId: categoryId}, function (err, products) {
+    models.Product.find({categoryId: categoryId}, function (err, products) {
         if (err){
             console.log(err);
             console.log("query error");
@@ -17,13 +17,14 @@ exports.getProductsByCategoryId = function (categoryId, callback) {
 };
 
 exports.getAllProduct = function (callback) {
-    models.products.find(function (err, products) {
+    models.Product.find(function (err, products) {
         callback(products);
     });
 };
 
-exports.addProduct = function (product, callback) {
-    models.products.create(product, function (err, result) {
+exports.addProduct = function (productObject, callback) {
+    var product = new models.Product(productObject);
+    models.Product.create(product, function (err, result) {
         callback(err, result);
     });
 
@@ -31,6 +32,12 @@ exports.addProduct = function (product, callback) {
     //http://stackoverflow.com/questions/19701154/mongoose-whats-the-differences-between-model-create-and-collection-insert
     //callback();
 };
+
+exports.deleteProduct = function (productId, callback) {
+    models.Product.find({_id: productId}).remove(function (err, result) {
+        callback(err, result);
+    });
+}
 
 exports.insertSampleProduct = function(){
     var docs = [
@@ -70,7 +77,7 @@ exports.insertSampleProduct = function(){
             "description": "this is product 6"
         }
     ];
-    models.products.collection.insert(docs, onInsert);
+    models.Product.collection.insert(docs, onInsert);
 
     function onInsert(err, docs) {
         if (err) {

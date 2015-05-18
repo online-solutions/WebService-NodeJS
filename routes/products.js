@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var product = require('../models/product');
-var model = require('../models/models');
-
 
 /* GET products listing. */
 router.get('/', function(req, res, next) {
@@ -14,14 +12,30 @@ router.get('/', function(req, res, next) {
 
 /* POST new product. */
 router.post('/', function(req, res, next) {
-    var p = new model.products(req.body);
-
-    product.addProduct(p, function(err, result){
+    product.addProduct(req.body, function(err, result){
         res.send(
             (err === null) ? { msg: '' } : { msg: err }
         );
     });
 });
+
+router.delete('/:id', function (req, res, next) {
+    product.deleteProduct(req.params.id, function (err, result) {
+        res.send(
+            (err === null) ? { msg: '' } : { msg:'error: ' + err }
+        );
+    })
+});
+
+// another syntax
+//router.route('/:id').delete(function (req, res) {
+//    var models = require('../models/models');
+//    models.Product.remove({_id: req.params.id}, function (err, result) {
+//        res.send(
+//            (err === null) ? { msg: '' } : { msg:'error: ' + err }
+//        );
+//    })
+//})
 
 /* GET template. */
 router.get('/index', function(req, res, next) {
