@@ -2,21 +2,21 @@
  * Created by SUCCESS\phungdinh on 5/15/15.
  */
 
-// Userlist data array for filling in info box
-var userListData = [];
+// ProductList data array for filling in info box
+var productListData = [];
 
 // DOM Ready =============================================================
 $(document).ready(function() {
 
-    // Populate the user table on initial page load
+    // Populate the product table on initial page load
     populateTable();
 
-    // Username link click
-    $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
+    // ProductName link click
+    $('#productList table tbody').on('click', 'td a.link_show_product', showProductInfo);
 
 
-    // Add User button click
-    $('#btnAddUser').on('click', addUser);
+    // Add Product button click
+    $('#btnAddProduct').on('click', addProduct);
 
 
 });
@@ -31,72 +31,72 @@ function populateTable() {
 
     // jQuery AJAX call for JSON
     $.getJSON( '/products/', function( data ) {
-        userListData = data;
+        productListData = data;
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.name + '">' + this.name + '</a></td>';
+            tableContent += '<td><a href="#" class="link_show_product" rel="' + this.name + '">' + this.name + '</a></td>';
             tableContent += '<td>' + this.price + '</td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td><a href="#" class="link_delete_product" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
 
         // Inject the whole content string into our existing HTML table
-        $('#userList table tbody').html(tableContent);
+        $('#productList table tbody').html(tableContent);
     });
 };
 
 
-// Show User Info
-function showUserInfo(event) {
+// Show Product Info
+function showProductInfo(event) {
     console.log("click");
 
     // Prevent Link from Firing
     event.preventDefault();
 
-    // Retrieve username from link rel attribute
-    var thisUserName = $(this).attr('rel');
+    // Retrieve productName from link rel attribute
+    var thisProductName = $(this).attr('rel');
 
     // Get Index of object based on id value
-    var arrayPosition = userListData.map(function(arrayItem) { return arrayItem.name; }).indexOf(thisUserName);
+    var arrayPosition = productListData.map(function(arrayItem) { return arrayItem.name; }).indexOf(thisProductName);
 
-    // Get our User Object
-    var thisUserObject = userListData[arrayPosition];
+    // Get our Product Object
+    var thisProductObject = productListData[arrayPosition];
 
     //Populate Info Box
-    $('#userInfoName').text(thisUserObject.name);
-    $('#userInfoAge').text(thisUserObject.price);
-    $('#userInfoGender').text(thisUserObject.description);
-    $('#userInfoLocation').text(thisUserObject.location);
+    $('#productInfoName').text(thisProductObject.name);
+    $('#productInfoAge').text(thisProductObject.price);
+    $('#productInfoGender').text(thisProductObject.description);
+    $('#productInfoLocation').text(thisProductObject.location);
 };
 
 
-// Add User
-function addUser(event) {
+// Add Product
+function addProduct(event) {
     event.preventDefault();
 
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
-    $('#addUser input').each(function(index, val) {
+    $('#addProduct input').each(function(index, val) {
         if($(this).val() === '') { errorCount++; }
     });
 
     // Check and make sure errorCount's still at zero
     if(errorCount === 0) {
 
-        // If it is, compile all user info into one object
-        var newUser = {
-            'name': $('#addUser fieldset input#inputName').val(),
-            'description': $('#addUser fieldset input#inputPrice').val(),
-            'price': $('#addUser fieldset input#inputDescription').val()
+        // If it is, compile all product info into one object
+        var newProduct = {
+            'name': $('#addProduct fieldset input#inputName').val(),
+            'description': $('#addProduct fieldset input#inputPrice').val(),
+            'price': $('#addProduct fieldset input#inputDescription').val()
         }
 
-        console.log(newUser);
+        console.log(newProduct);
 
-        // Use AJAX to post the object to our adduser service
+        // Use AJAX to post the object to our addProduct service
         $.ajax({
             type: 'POST',
-            data: newUser,
+            data: newProduct,
             url: '/products/',
             dataType: 'JSON'
         }).done(function( response ) {
@@ -105,7 +105,7 @@ function addUser(event) {
             if (response.msg === '') {
 
                 // Clear the form inputs
-                $('#addUser fieldset input').val('');
+                $('#addProduct fieldset input').val('');
 
                 // Update the table
                 populateTable();

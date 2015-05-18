@@ -16,37 +16,37 @@ a {
     position:relative;
 }
 
-#userList {
+#productList {
     margin:0 0 30px 0;
 }
-#userList table {
+#productList table {
     border-collapse:separate;
     border-spacing:1px;
     background:#CCC;
 }
-#userList table th {
+#productList table th {
     background:#EEE;
     font-weight:600;
     padding:10px 20px;
     text-align:center;
 }
-#userList table tbody {
+#productList table tbody {
     padding:0; margin:0;
     border-collapse:collapse;
     border-spacing:0px;
 }
-#userList table td {
+#productList table td {
     background:#FFF;
     padding:5px 10px;
     text-align:center;
 }
 
-#userInfo {
+#productInfo {
     width:250px;
     position:absolute;
     top:0; left:0;
 }
-#userInfo p {
+#productInfo p {
     padding:15px;
     border:1px solid #CCC;
     background:rgba(80,120,255,0.05);
