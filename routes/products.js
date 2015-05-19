@@ -5,16 +5,6 @@ var product = require('../models/product');
 /* GET products listing. */
 router.get('/', function(req, res, next) {
     product.getAllProduct(function (found) {
-        //var newProduct = {
-        //    'name': 'name',
-        //    'description': 'des',
-        //    'price': 12
-        //}
-        //product.updateProduct(newProduct, function (err, result) {
-        //    console.log(err);
-        //    console.log(result);
-        //});
-        //console.log(found);
         res.json(found);
 
     });

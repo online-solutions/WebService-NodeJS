@@ -1,5 +1,5 @@
 /**
- * Created by SUCCESS\phungdinh on 5/15/15.
+ * Created by yohananjr13 on 5/15/15.
  */
 var models = require('../models/models');
 
@@ -21,6 +21,7 @@ exports.getAllProduct = function (callback) {
 
 exports.addProduct = function (productObject, callback) {
     //var product = new models.Product(productObject);
+    // product.save()...
     models.Product.create(productObject, function (err, result) {
         callback(err, result);
     });

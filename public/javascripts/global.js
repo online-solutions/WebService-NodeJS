@@ -1,5 +1,5 @@
 /**
- * Created by SUCCESS\phungdinh on 5/15/15.
+ * Created by yohananjr13 on 5/15/15.
  */
 
 // ProductList data array for filling in info box

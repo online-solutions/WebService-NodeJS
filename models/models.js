@@ -1,9 +1,16 @@
 /**
- * Created by SUCCESS\phungdinh on 5/15/15.
+ * Created by yohananjr13 on 5/15/15.
  */
 var mongoose = require('mongoose');
+var host_url = 'mongodb://localhost:27017/webservice'
 
-var Schema = mongoose.Schema;
+mongoose.connect(host_url, function(err) {
+    if(err) {
+        console.log('connection error ----\n', err);
+    } else {
+        console.log('connection successful to ' + host_url);
+    }
+});
 
 var userSchema = mongoose.Schema({
     token : String,
@@ -18,9 +25,14 @@ var productSchema = mongoose.Schema({
     categoryId: Number,
     name: String,
     price: Number,
-    description: String
+    description: String,
+    updated_at: { type: Date, default: Date.now }
 }, { versionKey: false });
 
-mongoose.connect('mongodb://localhost:27017/webservice');
-module.exports.User = mongoose.model('users', userSchema);
-module.exports.Product = mongoose.model('products', productSchema);
+var User = mongoose.model('users', userSchema);
+var Product = mongoose.model('products', productSchema);
+
+module.exports = {
+    User: User,
+    Product: Product
+};
