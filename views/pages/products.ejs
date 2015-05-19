@@ -1,7 +1,7 @@
 <!-- views/pages/index.ejs -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
     <% include ../partials/head %>
 </head>
@@ -49,18 +49,43 @@
     <div id="addProduct">
         <fieldset>
             <input id="inputName" type="text" placeholder="Name"/>
-            <input id="inputPrice" type="number" placeholder="Price"/><br/>
+            <input id="inputPrice" type="number" min="0" placeholder="Price"/><br/>
             <input id="inputDescription" type="text" placeholder="Description"/>
             <button id="btnAddProduct">Add Product</button>
         </fieldset>
     </div>
     <!-- /ADD PRODUCT-->
+
+    <div id="productListAngularWrapper">
+        <h2>AngularJS</h2>
+        <ng-view></ng-view>
+
+    </div>
+
+</div>
 </div>
 <!-- /WRAPPER-->
 
 <footer>
     <% include ../partials/footer %>
 </footer>
+
+<!-- Template -->
+<script type="text/ng-template" id="/products.html">
+    Search: <input type="text" ng-model="search.name">
+    <ul>
+        <li ng-repeat="product in products | filter: search">
+            <input type="checkbox" ng-model="product.isActive">
+            <a href="#/{{$index}}">{{product.name}}</a>
+        </li>
+    </ul>
+</script>
+
+<script type="text/ng-template" id="/productDetail.html">
+    <h1>{{ product.name }}</h1>
+    completed: <input type="checkbox" ng-model="product.isActive">
+    note: <textarea>{{ product.price }}</textarea>
+</script>
 
 </body>
 </html>

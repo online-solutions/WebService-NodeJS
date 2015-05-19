@@ -60,3 +60,10 @@ fieldset {
     border:0;
     padding:0; margin:0;
 }
+
+#productListAngularWrapper{
+    width: 300px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}

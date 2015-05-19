@@ -26,6 +26,7 @@ var productSchema = mongoose.Schema({
     name: String,
     price: Number,
     description: String,
+    isActive: Boolean,
     updated_at: { type: Date, default: Date.now }
 }, { versionKey: false });
 
